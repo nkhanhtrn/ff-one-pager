@@ -14,33 +14,66 @@ const initialContent = `# Hello, Toast UI Editor!`;
 
 export default {
   name: 'ToastEditor',
+  props: {
+    dark: {
+      type: Boolean,
+      default: true
+    }
+  },
   mounted() {
-  let savedContent = Storage.getString(STORAGE_KEY, null);
-    let firstTime = false;
-    if (savedContent === null) {
-      savedContent = initialContent;
-      firstTime = true;
-    }
-    this.editor = new Editor({
-      el: document.querySelector('#editor'),
-      height: '500px',
-      initialEditType: 'markdown',
-      previewStyle: 'tab',
-      initialValue: savedContent,
-      toolbarItems: [],
-      hideModeSwitch: true,
-    });
-    if (firstTime) {
-  Storage.setString(STORAGE_KEY, initialContent);
-    }
+    const savedContent = this.getSavedContent();
+    this.editor = this.createEditor(savedContent);
     this.editor.on('change', () => {
       const content = this.editor.getMarkdown();
-  Storage.setString(STORAGE_KEY, content);
+      Storage.setString(STORAGE_KEY, content);
     });
+    // Apply dark mode on mount
+    this.applyDarkMode(this.dark);
   },
   beforeUnmount() {
     if (this.editor) {
       this.editor.destroy();
+    }
+  },
+  watch: {
+    dark(val) {
+      this.applyDarkMode(val);
+    }
+  },
+  methods: {
+    createEditor(initialValue) {
+      return new Editor({
+        el: document.querySelector('#editor'),
+        height: '500px',
+        initialEditType: 'markdown',
+        previewStyle: 'tab',
+        initialValue,
+        toolbarItems: [],
+        hideModeSwitch: true,
+      });
+    },
+    applyDarkMode(isDark) {
+      const root = document.documentElement;
+      if (isDark) {
+        root.style.setProperty('--editor-bg', '#2d2d2d');
+        root.style.setProperty('--editor-text', '#ffffff');
+        root.style.setProperty('--editor-highlight', '#399e42');
+        root.style.setProperty('--editor-text-secondary', '#888888');
+        root.style.setProperty('--editor-font-size', '1.1em');
+      } else {
+        root.style.setProperty('--editor-bg', '#fff');
+        root.style.setProperty('--editor-text', '#222');
+        root.style.setProperty('--editor-highlight', '#399e42');
+        root.style.setProperty('--editor-text-secondary', '#666666');
+        root.style.setProperty('--editor-font-size', '1.1em');
+      }
+    },
+    getSavedContent() {
+      const saved = Storage.getString(STORAGE_KEY, null);
+      if (saved === null) {
+        return initialContent;
+      }
+      return saved;
     }
   }
 }

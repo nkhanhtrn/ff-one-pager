@@ -3,7 +3,7 @@
   <button class="settings-btn" @click="showSettings = !showSettings" aria-label="Settings">
       <span class="settings-icon">&#8230;</span>
     </button>
-    <ToastEditor />
+    <ToastEditor :dark="isDarkMode" />
     <SettingsModal
       :visible="showSettings"
       :dark="isDarkMode"
@@ -20,6 +20,8 @@
 import ToastEditor from './components/ToastEditor.vue';
 import SettingsModal from './components/SettingsModal.vue';
 import Clock from './components/Clock.vue';
+import { Storage, StorageKeys } from './utils/storage.js';
+import { watch } from 'vue';
 
 export default {
   name: 'App',
@@ -32,20 +34,9 @@ export default {
     return {
       showSettings: false,
       isDarkMode: this.getInitialDarkMode(),
-      showClock: null,
+      showClock: this.getInitialShowClock(),
     };
   },
-  created() {
-    this.showClock = this.getInitialShowClock();
-    this.applyDarkMode(this.isDarkMode);
-  },
-  watch: {
-    isDarkMode(val) {
-      this.applyDarkMode(val);
-      localStorage.setItem('ff-one-pager-dark', val ? '1' : '0');
-    }
-  },
-
   mounted() {
     document.addEventListener('mousedown', this.handleClickOutside);
   },
@@ -53,15 +44,6 @@ export default {
     document.removeEventListener('mousedown', this.handleClickOutside);
   },
   methods: {
-    getInitialShowClock() {
-      const stored = localStorage.getItem('ff-one-pager-show-clock');
-      if (stored !== null) return stored === '1';
-      return true;
-    },
-    toggleShowClock(val) {
-      this.showClock = val;
-      localStorage.setItem('ff-one-pager-show-clock', val ? '1' : '0');
-    },
     handleClickOutside(event) {
       // Only close if menu is open and click is outside button and menu
       if (!this.showSettings) return;
@@ -77,29 +59,18 @@ export default {
     },
     toggleDarkMode(val) {
       this.isDarkMode = val;
+      Storage.setBool(StorageKeys.DARK, val);
+    },
+    toggleShowClock(val) {
+      this.showClock = val;
+      Storage.setBool(StorageKeys.SHOW_CLOCK, val);
     },
     getInitialDarkMode() {
-      const stored = localStorage.getItem('ff-one-pager-dark');
-      if (stored !== null) return stored === '1';
-      // Default to dark mode if no preference is stored
-      return true;
+      return Storage.getBool(StorageKeys.DARK, true); // Default to dark mode if no preference is stored
     },
-    applyDarkMode(isDark) {
-      const root = document.documentElement;
-      if (isDark) {
-        root.style.setProperty('--editor-bg', '#2d2d2d');
-        root.style.setProperty('--editor-text', '#ffffff');
-        root.style.setProperty('--editor-highlight', '#399e42');
-        root.style.setProperty('--editor-text-secondary', '#888888');
-        root.style.setProperty('--editor-font-size', '1.1em');
-      } else {
-        root.style.setProperty('--editor-bg', '#fff');
-        root.style.setProperty('--editor-text', '#222');
-        root.style.setProperty('--editor-highlight', '#399e42');
-        root.style.setProperty('--editor-text-secondary', '#666666');
-        root.style.setProperty('--editor-font-size', '1.1em');
-      }
-    }
+    getInitialShowClock() {
+        return Storage.getBool(StorageKeys.SHOW_CLOCK, true);
+    },
   }
 }
 </script>
