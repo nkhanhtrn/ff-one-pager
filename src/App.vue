@@ -7,27 +7,37 @@
     <SettingsModal
       :visible="showSettings"
       :dark="isDarkMode"
+      :show-clock="showClock"
       @close="showSettings = false"
       @toggle-dark="toggleDarkMode"
+      @toggle-show-clock="toggleShowClock"
     />
+    <Clock v-if="showClock" />
   </div>
 </template>
 
 <script>
 import ToastEditor from './components/ToastEditor.vue';
 import SettingsModal from './components/SettingsModal.vue';
+import Clock from './components/Clock.vue';
 
 export default {
   name: 'App',
   components: {
     ToastEditor,
-    SettingsModal
+    SettingsModal,
+    Clock
   },
   data() {
     return {
       showSettings: false,
-      isDarkMode: this.getInitialDarkMode()
+      isDarkMode: this.getInitialDarkMode(),
+      showClock: null,
     };
+  },
+  created() {
+    this.showClock = this.getInitialShowClock();
+    this.applyDarkMode(this.isDarkMode);
   },
   watch: {
     isDarkMode(val) {
@@ -35,9 +45,7 @@ export default {
       localStorage.setItem('ff-one-pager-dark', val ? '1' : '0');
     }
   },
-  created() {
-    this.applyDarkMode(this.isDarkMode);
-  },
+
   mounted() {
     document.addEventListener('mousedown', this.handleClickOutside);
   },
@@ -45,6 +53,15 @@ export default {
     document.removeEventListener('mousedown', this.handleClickOutside);
   },
   methods: {
+    getInitialShowClock() {
+      const stored = localStorage.getItem('ff-one-pager-show-clock');
+      if (stored !== null) return stored === '1';
+      return true;
+    },
+    toggleShowClock(val) {
+      this.showClock = val;
+      localStorage.setItem('ff-one-pager-show-clock', val ? '1' : '0');
+    },
     handleClickOutside(event) {
       // Only close if menu is open and click is outside button and menu
       if (!this.showSettings) return;

@@ -8,6 +8,11 @@
           <input type="checkbox" v-model="darkMode" @change="toggleDarkMode" class="toggle-input">
           <span class="toggle-slider"></span>
         </label>
+        <label class="toggle-row">
+          <span class="toggle-label">Show clock</span>
+          <input type="checkbox" v-model="showClockLocal" @change="toggleShowClock" class="toggle-input">
+          <span class="toggle-slider"></span>
+        </label>
   <button class="close-btn" @click="$emit('close')" aria-label="Close">&times;</button>
       </div>
     </div>
@@ -27,21 +32,32 @@ export default {
     dark: {
       type: Boolean,
       default: false
+    },
+    showClock: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
     return {
-      darkMode: this.dark
+      darkMode: this.dark,
+      showClockLocal: this.showClock
     };
   },
   watch: {
     dark(val) {
       this.darkMode = val;
+    },
+    showClock(val) {
+      this.showClockLocal = val;
     }
   },
   methods: {
     toggleDarkMode() {
       this.$emit('toggle-dark', this.darkMode);
+    },
+    toggleShowClock() {
+      this.$emit('toggle-show-clock', this.showClockLocal);
     }
   }
 }
