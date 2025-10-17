@@ -9,8 +9,7 @@ export default defineConfig({
     vue(),
     viteStaticCopy({
       targets: [
-        { src: 'manifest.json', dest: '.' },
-        { src: 'icons', dest: '.' }
+        { src: 'manifest.json', dest: '.' }
       ]
     })
   ],
@@ -24,7 +23,9 @@ export default defineConfig({
         entryFileNames: 'assets/[name].js',
         chunkFileNames: 'assets/[name].js',
         assetFileNames: 'assets/[name].[ext]'
-      }
+      },
+      // Disable code splitting
+      manualChunks: undefined
     }
   }
 })

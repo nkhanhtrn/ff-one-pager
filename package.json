@@ -12,6 +12,7 @@
     "web-ext:build": "npm run build && web-ext build --source-dir=dist --artifacts-dir=web-ext-artifacts"
   },
   "dependencies": {
+    "@toast-ui/editor": "^3.2.2",
     "vue": "^3.4.0"
   },
   "devDependencies": {
