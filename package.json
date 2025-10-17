@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "web-ext:run": "npm run build && web-ext run --source-dir=dist --no-input",
     "web-ext:lint": "web-ext lint --source-dir=dist",
-    "web-ext:build": "npm run build && web-ext build --source-dir=dist --artifacts-dir=web-ext-artifacts"
+    "web-ext:build": "npm run build && web-ext build --source-dir=dist --artifacts-dir=web-ext-artifacts",
+    "test": "vitest"
   },
   "dependencies": {
     "@toast-ui/editor": "^3.2.2",
@@ -17,8 +18,10 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.0",
+    "jsdom": "^27.0.0",
     "vite": "^5.0.0",
     "vite-plugin-static-copy": "^3.1.4",
+    "vitest": "^3.2.4",
     "web-ext": "^9.0.0"
   }
 }

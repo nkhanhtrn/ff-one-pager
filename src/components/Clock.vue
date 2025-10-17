@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import { Storage, StorageKeys } from '../utils/storage.js';
+
 export default {
   name: 'Clock',
   data() {
@@ -35,13 +37,11 @@ export default {
     },
     toggleHourMode() {
       this.hour12 = !this.hour12;
-      localStorage.setItem('ff-one-pager-clock-hour12', this.hour12 ? '1' : '0');
+      Storage.setBool(StorageKeys.CLOCK_HOUR12, this.hour12);
       this.updateTime();
     },
     getInitialHour12() {
-      const stored = localStorage.getItem('ff-one-pager-clock-hour12');
-      if (stored !== null) return stored === '1';
-      return false;
+      return Storage.getBool(StorageKeys.CLOCK_HOUR12, false);
     }
 }
 }
