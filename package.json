@@ -1,0 +1,23 @@
+{
+  "name": "ff-one-pager",
+  "version": "1.0.0",
+  "description": "Firefox extension one-pager with Vue.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "web-ext:run": "npm run build && web-ext run --source-dir=dist --no-input",
+    "web-ext:lint": "web-ext lint --source-dir=dist",
+    "web-ext:build": "npm run build && web-ext build --source-dir=dist --artifacts-dir=web-ext-artifacts"
+  },
+  "dependencies": {
+    "vue": "^3.4.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.0",
+    "vite": "^5.0.0",
+    "vite-plugin-static-copy": "^3.1.4",
+    "web-ext": "^9.0.0"
+  }
+}
