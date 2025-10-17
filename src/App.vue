@@ -4,7 +4,12 @@
       <span class="settings-icon">&#8230;</span>
     </button>
     <ToastEditor />
-    <SettingsModal :visible="showSettings" @close="showSettings = false" />
+    <SettingsModal
+      :visible="showSettings"
+      :dark="isDarkMode"
+      @close="showSettings = false"
+      @toggle-dark="toggleDarkMode"
+    />
   </div>
 </template>
 
@@ -20,8 +25,18 @@ export default {
   },
   data() {
     return {
-      showSettings: false
+      showSettings: false,
+      isDarkMode: this.getInitialDarkMode()
     };
+  },
+  watch: {
+    isDarkMode(val) {
+      this.applyDarkMode(val);
+      localStorage.setItem('ff-one-pager-dark', val ? '1' : '0');
+    }
+  },
+  created() {
+    this.applyDarkMode(this.isDarkMode);
   },
   mounted() {
     document.addEventListener('mousedown', this.handleClickOutside);
@@ -42,6 +57,31 @@ export default {
         return;
       }
       this.showSettings = false;
+    },
+    toggleDarkMode(val) {
+      this.isDarkMode = val;
+    },
+    getInitialDarkMode() {
+      const stored = localStorage.getItem('ff-one-pager-dark');
+      if (stored !== null) return stored === '1';
+      // Default to dark mode if no preference is stored
+      return true;
+    },
+    applyDarkMode(isDark) {
+      const root = document.documentElement;
+      if (isDark) {
+        root.style.setProperty('--editor-bg', '#2d2d2d');
+        root.style.setProperty('--editor-text', '#ffffff');
+        root.style.setProperty('--editor-highlight', '#399e42');
+        root.style.setProperty('--editor-text-secondary', '#888888');
+        root.style.setProperty('--editor-font-size', '1.1em');
+      } else {
+        root.style.setProperty('--editor-bg', '#fff');
+        root.style.setProperty('--editor-text', '#222');
+        root.style.setProperty('--editor-highlight', '#399e42');
+        root.style.setProperty('--editor-text-secondary', '#666666');
+        root.style.setProperty('--editor-font-size', '1.1em');
+      }
     }
   }
 }

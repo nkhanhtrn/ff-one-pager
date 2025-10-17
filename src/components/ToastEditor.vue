@@ -62,13 +62,6 @@ export default {
 
 
 <style>
-:root {
-  --editor-bg: #2d2d2d;
-  --editor-text: #ffffff;
-  --editor-highlight: #399e42;
-  --editor-font-size: 1.1em;
-}
-
 /* Green highlight for selection and mark */
 .toastui-editor-defaultUI .ProseMirror {
     background: var(--editor-bg) !important;
@@ -78,6 +71,10 @@ export default {
 .toastui-editor-defaultUI .ProseMirror ::selection {
   background: var(--editor-highlight) !important;
   color: var(--editor-text) !important;
+}
+
+.toastui-editor-md-delimiter {
+    color: var(--editor-text-secondary) !important;
 }
 
 /* More spacious translated bullet points */
