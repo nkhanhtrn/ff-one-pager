@@ -7,13 +7,15 @@
 import Editor from '@toast-ui/editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
+import { Storage, StorageKeys } from '../utils/storage.js';
 
+const STORAGE_KEY = StorageKeys.CONTENT;
 const initialContent = `# Hello, Toast UI Editor!`;
 
 export default {
   name: 'ToastEditor',
   mounted() {
-    let savedContent = localStorage.getItem('ff-one-pager-content');
+  let savedContent = Storage.getString(STORAGE_KEY, null);
     let firstTime = false;
     if (savedContent === null) {
       savedContent = initialContent;
@@ -29,11 +31,11 @@ export default {
       hideModeSwitch: true,
     });
     if (firstTime) {
-      localStorage.setItem('ff-one-pager-content', initialContent);
+  Storage.setString(STORAGE_KEY, initialContent);
     }
     this.editor.on('change', () => {
       const content = this.editor.getMarkdown();
-      localStorage.setItem('ff-one-pager-content', content);
+  Storage.setString(STORAGE_KEY, content);
     });
   },
   beforeUnmount() {

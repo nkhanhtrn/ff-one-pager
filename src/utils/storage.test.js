@@ -24,4 +24,16 @@ describe('Storage interface', () => {
     expect(Storage.getBool(StorageKeys.DARK, false)).toBe(true);
     expect(Storage.getBool(StorageKeys.SHOW_CLOCK, true)).toBe(false);
   });
+
+  it('should get and set string values', () => {
+    expect(Storage.getString(StorageKeys.CONTENT, 'default')).toBe('default');
+    Storage.setString(StorageKeys.CONTENT, 'hello world');
+    expect(Storage.getString(StorageKeys.CONTENT, 'default')).toBe('hello world');
+    Storage.setString(StorageKeys.CONTENT, '');
+    expect(Storage.getString(StorageKeys.CONTENT, 'fallback')).toBe('');
+  });
+
+  it('should use fallback for getString if key is not set', () => {
+    expect(Storage.getString('nonexistent-key', 'fallback')).toBe('fallback');
+  });
 });
