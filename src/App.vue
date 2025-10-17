@@ -14,16 +14,25 @@ export default {
   name: 'App',
   mounted() {
     // Load from localStorage if available
-    const savedContent = localStorage.getItem('ff-one-pager-content');
+    let savedContent = localStorage.getItem('ff-one-pager-content');
+    let firstTime = false;
+    if (savedContent === null) {
+      savedContent = initialContent;
+      firstTime = true;
+    }
     this.editor = new Editor({
       el: document.querySelector('#editor'),
       height: '500px',
       initialEditType: 'markdown',
       previewStyle: 'tab',
-      initialValue: savedContent || initialContent,
+      initialValue: savedContent,
       toolbarItems: [],
       hideModeSwitch: true,
     });
+    // If first time, save initial content so it doesn't show again
+    if (firstTime) {
+      localStorage.setItem('ff-one-pager-content', initialContent);
+    }
     // Save to localStorage on change
     this.editor.on('change', () => {
       const content = this.editor.getMarkdown();
@@ -75,6 +84,12 @@ html, body {
 .toastui-editor-defaultUI .ProseMirror ::selection {
   background: var(--editor-highlight) !important;
   color: var(--editor-text) !important;
+}
+
+/* More spacious translated bullet points */
+.toastui-editor-md-list-item {
+  margin-right: 0.3em !important;
+  margin-left: 0.4em !important;
 }
 </style>
 
