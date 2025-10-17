@@ -106,6 +106,15 @@ export default {
   background: var(--editor-bg);
   box-sizing: border-box;
 }
+
+@media (max-width: 420px) {
+  .editor-textarea {
+    width: 100vw;
+    height: 100vh;
+    box-sizing: unset;
+    padding: 10px 0;
+  }
+}
 </style>
 
 

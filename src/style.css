@@ -18,10 +18,33 @@
 body {
   margin: 0;
   padding: 0;
-  width: 400px;
-  overflow-x: hidden;
+  width: 100vw;
+  min-width: 350px;
+  max-width: 400px;
+  min-height: 300px;
+  background: var(--editor-bg, #fff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #app {
-  width: 100%;
+  width: 100%; 
+  min-width: 320px;
+  max-width: 380px;
+  margin: 0 auto;
+  padding: 12px 0;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+  background: var(--editor-bg, #fff);
+}
+
+@media (max-width: 420px) {
+  body, #app {
+    width: 100vw;
+    max-width: 100vw;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+  }
 }
