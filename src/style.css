@@ -1,3 +1,11 @@
+/* Hide scroll bar globally */
+body {
+  overflow: hidden;
+}
+/* For webkit browsers */
+body::-webkit-scrollbar {
+  display: none;
+}
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

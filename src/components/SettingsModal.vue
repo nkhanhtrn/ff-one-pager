@@ -2,22 +2,29 @@
   <FadeScaleTransition>
     <div v-if="visible" class="settings-popup">
       <div class="settings-popup-content">
-        <div style="font-weight:bold; margin-bottom:0.5em;">Settings</div>
-        <label class="toggle-row">
-          <span class="toggle-label">Dark mode</span>
-          <span class="toggle-switch">
-            <input type="checkbox" v-model="darkMode" @change="toggleDarkMode" class="toggle-input">
-            <span class="toggle-slider"></span>
-          </span>
-        </label>
-        <label class="toggle-row">
-          <span class="toggle-label">Show clock</span>
-          <span class="toggle-switch">
-            <input type="checkbox" v-model="showClockLocal" @change="toggleShowClock" class="toggle-input">
-            <span class="toggle-slider"></span>
-          </span>
-        </label>
-  <button class="close-btn" @click="$emit('close')" aria-label="Close">&times;</button>
+  <div class="settings-title">Settings</div>
+  <div style="height: 0.7em;"></div>
+        <ToggleSwitch
+          label="Dark mode"
+          :modelValue="darkMode"
+          @update:modelValue="darkMode = $event"
+          @change="toggleDarkMode"
+        />
+        <ToggleSwitch
+          label="Show clock"
+          :modelValue="showClockLocal"
+          @update:modelValue="showClockLocal = $event"
+          @change="toggleShowClock"
+        />
+        <button class="close-btn" @click="$emit('close')" aria-label="Close">&times;</button>
+        <div class="settings-footnote">
+          <a href="https://github.com/nkhanhtrn/ff-one-pager" target="_blank" rel="noopener" class="github-link">
+          made with &nbsp;
+            <svg class="github-icon" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" style="vertical-align:middle;">
+              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
   </FadeScaleTransition>
@@ -25,9 +32,10 @@
 
 <script>
 import FadeScaleTransition from '../shared/FadeScaleTransition.vue';
+import ToggleSwitch from '../shared/ToggleSwitch.vue';
 export default {
   name: 'SettingsModal',
-  components: { FadeScaleTransition },
+  components: { FadeScaleTransition, ToggleSwitch },
   props: {
     visible: {
       type: Boolean,
@@ -74,6 +82,16 @@ export default {
   bottom: 44px;
   z-index: 1200;
 }
+.settings-title {
+  font-weight: bold;
+  font-size: 1.15em;
+  margin-bottom: 0.5em;
+  padding-bottom: 0.4em;
+  border-bottom: 1.5px solid #444;
+  width: 100%;
+  color: #bbb;
+  opacity: 0.55;
+}
 .settings-popup-content {
   position: relative;
   background: var(--editor-bg, #222);
@@ -87,66 +105,10 @@ export default {
   flex-direction: column;
   align-items: flex-start;
 }
-.toggle-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.8em;
-  font-size: 1em;
-  cursor: pointer;
-  gap: 0.7em;
-}
-.toggle-label {
-  color: var(--editor-text, #fff);
-  font-size: 1em;
-  font-weight: 400;
-  letter-spacing: 0.01em;
-  min-width: 90px;
-  text-align: left;
-  flex: 1 1 auto;
-}
-.toggle-switch {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex: 0 0 auto;
-}
-.toggle-input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-  position: absolute;
-}
-.toggle-slider {
-  display: inline-block;
-  width: 36px;
-  height: 20px;
-  background: #444;
-  border-radius: 12px;
-  position: relative;
-  transition: background 0.2s;
-  vertical-align: middle;
-}
-.toggle-row .toggle-input:checked + .toggle-slider {
-  background: #399e42;
-}
-.toggle-slider:before {
-  content: '';
-  position: absolute;
-  left: 3px;
-  top: 3px;
-  width: 14px;
-  height: 14px;
-  background: #fff;
-  border-radius: 50%;
-  transition: transform 0.2s;
-}
-.toggle-row .toggle-input:checked + .toggle-slider:before {
-  transform: translateX(16px);
-}
 .close-btn {
   position: absolute;
   top: 8px;
+  user-select: none;
   right: 10px;
   background: none;
   color: #888;
@@ -167,5 +129,24 @@ export default {
 .close-btn:hover {
   background: #3331;
   color: #bbb;
+}
+.settings-footnote {
+  width: 100%;
+  text-align: center;
+  font-size: 0.85em;
+  color: #bbb;
+  opacity: 0.45;
+  user-select: none;
+  margin-top: 0.7em;
+}
+.settings-footnote a.github-link {
+  color: #bbb;
+  text-decoration: none;
+  opacity: 0.7;
+  margin-left: 2px;
+  pointer-events: auto;
+}
+.github-icon {
+  vertical-align: middle;
 }
 </style>
