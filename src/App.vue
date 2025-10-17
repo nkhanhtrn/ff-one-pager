@@ -6,6 +6,7 @@
 <script>
 import Editor from '@toast-ui/editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
+import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 
 export default {
   name: 'App',
@@ -14,10 +15,10 @@ export default {
       el: document.querySelector('#editor'),
       height: '500px',
       initialEditType: 'markdown',
-      previewStyle: 'tab', // Still required, but tabs will be hidden by CSS
+      previewStyle: 'tab',
       initialValue: '# Hello, Toast UI Editor!\n\nStart editing...',
-      toolbarItems: [], // Remove all toolbar items
-      hideModeSwitch: true // Hide the tabs (mode switch)
+      toolbarItems: [],
+      hideModeSwitch: true,
     });
   },
   beforeUnmount() {
@@ -27,6 +28,16 @@ export default {
   }
 }
 </script>
+<style>
+:root {
+  --editor-bg: #2d2d2d;
+  --editor-text: #ffffff;
+  --editor-highlight: #399e42;
+}
+html, body {
+  background: var(--editor-bg) !important;
+}
+</style>
 <style scoped>
 .editor-outer {
   width: 100vw;
@@ -34,13 +45,25 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fff;
+  background: var(--editor-bg);
 }
 .editor-textarea {
   width: 80vw;
   height: 70vh;
-  background: #fff;
+  background: var(--editor-bg);
   box-sizing: border-box;
+}
+</style>
+
+<style>
+/* Green highlight for selection and mark */
+.toastui-editor-defaultUI .ProseMirror {
+    background: var(--editor-bg) !important;
+    color: var(--editor-text) !important;
+}
+.toastui-editor-defaultUI .ProseMirror ::selection {
+  background: var(--editor-highlight) !important;
+  color: var(--editor-text) !important;
 }
 </style>
 
