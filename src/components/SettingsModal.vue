@@ -5,13 +5,17 @@
         <div style="font-weight:bold; margin-bottom:0.5em;">Settings</div>
         <label class="toggle-row">
           <span class="toggle-label">Dark mode</span>
-          <input type="checkbox" v-model="darkMode" @change="toggleDarkMode" class="toggle-input">
-          <span class="toggle-slider"></span>
+          <span class="toggle-switch">
+            <input type="checkbox" v-model="darkMode" @change="toggleDarkMode" class="toggle-input">
+            <span class="toggle-slider"></span>
+          </span>
         </label>
         <label class="toggle-row">
           <span class="toggle-label">Show clock</span>
-          <input type="checkbox" v-model="showClockLocal" @change="toggleShowClock" class="toggle-input">
-          <span class="toggle-slider"></span>
+          <span class="toggle-switch">
+            <input type="checkbox" v-model="showClockLocal" @change="toggleShowClock" class="toggle-input">
+            <span class="toggle-slider"></span>
+          </span>
         </label>
   <button class="close-btn" @click="$emit('close')" aria-label="Close">&times;</button>
       </div>
@@ -86,7 +90,8 @@ export default {
 .toggle-row {
   display: flex;
   align-items: center;
-  margin-bottom: 1em;
+  justify-content: space-between;
+  margin-bottom: 0.8em;
   font-size: 1em;
   cursor: pointer;
   gap: 0.7em;
@@ -96,6 +101,15 @@ export default {
   font-size: 1em;
   font-weight: 400;
   letter-spacing: 0.01em;
+  min-width: 90px;
+  text-align: left;
+  flex: 1 1 auto;
+}
+.toggle-switch {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 0 0 auto;
 }
 .toggle-input {
   opacity: 0;

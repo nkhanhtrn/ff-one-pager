@@ -1,5 +1,7 @@
 <template>
-  <div class="clock">{{ time }}</div>
+  <div class="clock" @click="toggleHourMode" :title="hour12 ? 'Switch to 24-hour' : 'Switch to 12-hour'">
+    <span>{{ timeStr }}</span><span v-if="hour12 && ampm" class="ampm">{{ ampm }}</span>
+  </div>
 </template>
 
 <script>
@@ -7,27 +9,52 @@ export default {
   name: 'Clock',
   data() {
     return {
-      time: this.getTimeString()
+      timeStr: '',
+      ampm: '',
+      hour12: this.getInitialHour12()
     };
   },
   mounted() {
-    this.interval = setInterval(() => {
-      this.time = this.getTimeString();
-    }, 1000);
+    this.updateTime();
+    this.interval = setInterval(this.updateTime, 1000);
   },
   beforeUnmount() {
     clearInterval(this.interval);
   },
   methods: {
-    getTimeString() {
+    updateTime() {
       const now = new Date();
-      return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+      if (this.hour12) {
+        const parts = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }).split(' ');
+        this.timeStr = parts[0];
+        this.ampm = parts[1] || '';
+      } else {
+        this.timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+        this.ampm = '';
+      }
+    },
+    toggleHourMode() {
+      this.hour12 = !this.hour12;
+      localStorage.setItem('ff-one-pager-clock-hour12', this.hour12 ? '1' : '0');
+      this.updateTime();
+    },
+    getInitialHour12() {
+      const stored = localStorage.getItem('ff-one-pager-clock-hour12');
+      if (stored !== null) return stored === '1';
+      return false;
     }
-  }
+}
 }
 </script>
 
 <style scoped>
+ .ampm {
+   font-size: inherit;
+   opacity: 0.7;
+   margin-left: 0.38em;
+   letter-spacing: 0.01em;
+   font-family: inherit;
+ }
 .clock {
   position: fixed;
   right: 33px;
@@ -41,7 +68,8 @@ export default {
   z-index: 1200;
   letter-spacing: 0.04em;
   user-select: none;
-  pointer-events: none;
+  pointer-events: auto;
+  cursor: pointer;
   width: 22px;
   height: 22px;
   display: flex;
