@@ -10,7 +10,20 @@ import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 import { Storage, StorageKeys } from '../utils/storage.js';
 
 const STORAGE_KEY = StorageKeys.CONTENT;
-const initialContent = `# Hello, Toast UI Editor!`;
+const initialContent = `# Hello, Toast UI Editor!
+
+Welcome to One Pager! You can use **Markdown** to format your notes.
+
+## Markdown Quick Guide
+
+- **Bold:**
+- *Italic:*
+- [Link](https://example.com)
+- Lists: Use - or number for bullet points
+- Headings: Use #, ##, ### for headings
+
+Your note never leaves your device and is saved automatically. Enjoy writing!
+`;
 
 export default {
   name: 'ToastEditor',
@@ -89,7 +102,7 @@ export default {
 }
 .editor-textarea {
   width: 80vw;
-  height: 70vh;
+  height: 85vh;
   background: var(--editor-bg);
   box-sizing: border-box;
 }

@@ -1,15 +1,15 @@
 {
   "manifest_version": 3,
-  "name": "FF One Pager - Hello World",
+  "name": "One Pager",
   "version": "1.0.0",
-  "description": "A Firefox extension with Vue.js that displays a hello world popup",
+  "description": "Quickly jot down notes on a single page new tab with markdown support.",
   "icons": {
     "48": "icons/icon-48.svg",
     "96": "icons/icon-96.svg"
   },
   "action": {
     "default_popup": "index.html",
-    "default_title": "FF One Pager",
+    "default_title": "One Pager",
     "default_icon": {
       "48": "icons/icon-48.svg"
     }
@@ -23,7 +23,7 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "ff-one-pager@example.com",
-      "strict_min_version": "109.0"
+      "strict_min_version": "50.0"
     }
   }
 }
