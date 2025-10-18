@@ -4,7 +4,7 @@
 set -e
 
 # Build the project
-npm run build
+npm run build:singlefile
 
 # Check if gh-pages branch exists
 if git show-ref --quiet refs/heads/gh-pages; then
@@ -12,6 +12,8 @@ if git show-ref --quiet refs/heads/gh-pages; then
 fi
 
 git checkout --orphan gh-pages
+
+mv node_modules ~/node_modules
 
 # Remove all tracked files except dist and .git (safe)
 git rm -rf --cached .
@@ -26,7 +28,7 @@ git add .
 git commit -m "Deploy to GitHub Pages"
 
 git push -f origin gh-pages
-
 git checkout master
 
+mv ~/node_modules node_modules
 echo "Deployment complete. Enable GitHub Pages for the gh-pages branch in your repo settings."
