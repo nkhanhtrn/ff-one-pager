@@ -5,3 +5,5 @@
 rm -f web-ext-artifacts/*.zip
 
 npm run web-ext:build --overwrite-dest
+
+sh zip-source.sh
