@@ -4,14 +4,15 @@
   "version": "1.0.0",
   "description": "Quickly jot down notes on a single page new tab with markdown support.",
   "icons": {
-    "48": "icons/icon-48.svg",
-    "96": "icons/icon-96.svg"
+    "48": "icon.svg",
+    "96": "icon.svg"
   },
   "action": {
     "default_popup": "index.html",
     "default_title": "One Pager",
     "default_icon": {
-      "48": "icons/icon-48.svg"
+      "48": "icon.svg",
+      "96": "icon.svg"
     }
   },
   "permissions": [
