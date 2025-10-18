@@ -1,38 +1,79 @@
 
-# FF One Pager – Firefox Extension Template
 
-## How to Build, Run, and Pack
+# FF One Pager – Firefox Extension
 
-### 1. Install dependencies
 
-```bash
-npm install
-```
+## Build Instructions (Mozilla Policy Compliant)
 
-### 2. Build the extension
+### Operating System and Build Environment Requirements
 
-```bash
-npm run build
-```
-This will generate the production-ready files in the `dist/` folder.
+- **Supported OS:** Linux, macOS, Windows (WSL recommended for Windows)
+- **Node.js:** v18 or newer (LTS recommended)
+- **npm:** v9 or newer
+- **Firefox:** Latest stable or ESR (for testing)
+- **Build tools:**
+  - [Vite](https://vitejs.dev/) (installed via npm)
+  - [web-ext](https://extensionworkshop.com/documentation/develop/web-ext-command-reference/) (installed via npm)
+  - [ImageMagick](https://imagemagick.org/) (for icon conversion, optional)
 
-### 3. Run the extension in Firefox (live reload)
+### Required Programs & Installation
 
-```bash
-npm run web-ext:run
-```
-This will build and launch Firefox with your extension loaded for development. Any changes to your code will trigger a rebuild and reload the extension.
+1. **Node.js & npm**
+	- Download and install from [nodejs.org](https://nodejs.org/)
+	- Verify installation:
+	  ```bash
+	  node --version
+	  npm --version
+	  ```
 
-### 4. Pack the extension for distribution
+2. **ImageMagick** (for icon conversion, optional unless you want to regenerate icons)
+	- Linux: `sudo dnf install ImageMagick` or `sudo apt install imagemagick`
+	- macOS: `brew install imagemagick`
+	- Windows: [Download installer](https://imagemagick.org/script/download.php)
+	- Verify: `magick -version`
 
-```bash
-npm run web-ext:build
-```
-This will create a signed .zip file in the `web-ext-artifacts/` folder, ready for publishing or sharing.
+3. **Firefox**
+	- Download from [mozilla.org](https://www.mozilla.org/firefox/new/)
 
-### 5. Manual loading for testing
+### Step-by-Step Build Instructions
 
-If you want to load the extension manually:
-1. Build the extension: `npm run build`
-2. Open Firefox and go to `about:debugging#/runtime/this-firefox`
-3. Click "Load Temporary Add-on..." and select the `manifest.json` file from the `dist/` folder.
+1. **Clone the repository**
+	```bash
+	git clone https://github.com/nkhanhtrn/ff-one-pager.git
+	cd ff-one-pager
+	```
+
+2. **Install dependencies**
+	```bash
+	npm install
+	```
+
+3. **(Optional) Update icons**
+	If you change `public/icon.svg`, regenerate PNG icons:
+	```bash
+	./update-icon.sh
+	```
+
+4. **Build the extension**
+	```bash
+	npm run build
+	```
+	This creates the production files in the `dist/` folder.
+
+5. **Run the extension in Firefox (development mode)**
+	```bash
+	npm run web-ext:run
+	```
+	This launches Firefox with the extension loaded for live development.
+
+6. **Pack the extension for distribution**
+	```bash
+	npm run web-ext:build
+	```
+	This creates a distributable `.zip` in `web-ext-artifacts/`.
+
+7. **Manual loading for testing**
+	- Build: `npm run build`
+	- Open Firefox → `about:debugging#/runtime/this-firefox`
+	- Click "Load Temporary Add-on..." and select `manifest.json` from `dist/`.
+
