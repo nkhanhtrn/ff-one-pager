@@ -1,9 +1,11 @@
 
 
-# FF One Pager – Firefox Extension
+
+# FF One Pager – Browser Extension (Firefox & Chrome)
 
 
-## Build Instructions (Mozilla Policy Compliant)
+
+## Build Instructions (Firefox & Chrome)
 
 ### Operating System and Build Environment Requirements
 
@@ -35,7 +37,8 @@
 3. **Firefox**
 	- Download from [mozilla.org](https://www.mozilla.org/firefox/new/)
 
-### Step-by-Step Build Instructions
+
+### Step-by-Step Build Instructions (Firefox & Chrome)
 
 1. **Clone the repository**
 	```bash
@@ -54,26 +57,39 @@
 	./update-icon.sh
 	```
 
-4. **Build the extension**
-	```bash
-	npm run build
-	```
-	This creates the production files in the `dist/` folder.
 
-5. **Run the extension in Firefox (development mode)**
+4. **Build for Firefox**
+	```bash
+	npm run build:firefox
+	```
+	This creates the production files in the `dist/` folder with the Firefox manifest.
+
+5. **Build for Chrome**
+	```bash
+	npm run build:chrome
+	```
+	This creates the production files in the `dist/` folder with the Chrome manifest.
+
+6. **Run the extension in Firefox (development mode)**
 	```bash
 	npm run web-ext:run
 	```
 	This launches Firefox with the extension loaded for live development.
 
-6. **Pack the extension for distribution**
+7. **Manual loading for testing (Firefox)**
+	- Build: `npm run build:firefox`
+	- Open Firefox → `about:debugging#/runtime/this-firefox`
+	- Click "Load Temporary Add-on..." and select `manifest.json` from `dist/`.
+
+8. **Manual loading for testing (Chrome)**
+	- Build: `npm run build:chrome`
+	- Open Chrome → `chrome://extensions/`
+	- Enable "Developer mode"
+	- Click "Load unpacked" and select the `dist/` folder
+
+9. **Pack the extension for Firefox distribution**
 	```bash
 	npm run web-ext:build
 	```
 	This creates a distributable `.zip` in `web-ext-artifacts/`.
-
-7. **Manual loading for testing**
-	- Build: `npm run build`
-	- Open Firefox → `about:debugging#/runtime/this-firefox`
-	- Click "Load Temporary Add-on..." and select `manifest.json` from `dist/`.
 
