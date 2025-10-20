@@ -12,7 +12,7 @@
     "web-ext:lint": "web-ext lint --source-dir=dist",
     "build:firefox": "npm run clean && TARGET_BROWSER=firefox npm run build",
     "build:chrome": "npm run clean && TARGET_BROWSER=chrome npm run build",
-    "build:pwa": "npm run clean && VITE_PWA=true vite build && mv dist/index.pwa.html dist/index.html",
+    "build:pwa": "npm run clean && VITE_PWA=true vite build",
     "release:firefox": "npm run build:firefox && web-ext build --source-dir=dist --artifacts-dir=web-ext-artifacts --overwrite-dest",
     "release:chrome": "npm run build:chrome && web-ext build --source-dir=dist --artifacts-dir=web-ext-artifacts --overwrite-dest",
     "test": "vitest"

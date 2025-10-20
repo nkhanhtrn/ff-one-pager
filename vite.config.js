@@ -15,7 +15,18 @@ export default defineConfig({
       ? [
           VitePWA({
             registerType: 'autoUpdate',
-            includeAssets: ['favicon.svg', 'icon-16.png', 'icon-32.png', 'icon-64.png', 'icon-128.png', 'icon-256.png'],
+            includeAssets: [
+              'favicon.svg',
+              'icon-16.png',
+              'icon-32.png',
+              'icon-64.png',
+              'icon-128.png',
+              'icon-256.png',
+              'index.pwa.html',
+            ],
+            workbox: {
+              globPatterns: ['**/*.{js,css,html,png,svg,json}']
+            },
             manifest: {
               name: 'One Pager',
               short_name: 'One Pager',
@@ -23,11 +34,11 @@ export default defineConfig({
               theme_color: '#2d2d2d',
               background_color: '#2d2d2d',
               display: 'standalone',
-              start_url: '.',
+              start_url: './index.pwa.html',
               icons: [
-                { src: '/icon-128.png', sizes: '128x128', type: 'image/png' },
-                { src: '/icon-256.png', sizes: '256x256', type: 'image/png' },
-                { src: '/icon-48.png', sizes: '48x48', type: 'image/png' }
+                { src: 'icon-128.png', sizes: '128x128', type: 'image/png' },
+                { src: 'icon-256.png', sizes: '256x256', type: 'image/png' },
+                { src: 'icon-48.png', sizes: '48x48', type: 'image/png' }
               ]
             }
           })
@@ -46,6 +57,7 @@ export default defineConfig({
       })()
     })
   ],
+  base: './',
   build: {
     rollupOptions: {
       input: {
