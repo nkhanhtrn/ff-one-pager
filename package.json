@@ -11,11 +11,10 @@
     "web-ext:run": "npm run build && web-ext run --source-dir=dist --no-input",
     "web-ext:lint": "web-ext lint --source-dir=dist",
     "web-ext:build": "npm run build && web-ext build --source-dir=dist --artifacts-dir=web-ext-artifacts",
-    "build:chrome": "TARGET_BROWSER=chrome npm run build",
-    "build:firefox": "TARGET_BROWSER=firefox npm run build",
+    "build:chrome": "npm run clean && TARGET_BROWSER=chrome npm run build",
+    "build:firefox": "npm run clean && TARGET_BROWSER=firefox npm run build",
     "test": "vitest",
-    "build:singlefile": "VITE_SINGLEFILE=true vite build",
-    "build:multi": "vite build"
+    "build:pwa": "npm run clean && VITE_PWA=true vite build && mv dist/index.pwa.html dist/index.html"
   },
   "dependencies": {
     "@toast-ui/editor": "^3.2.2",
@@ -26,7 +25,7 @@
     "@vue/test-utils": "^2.4.6",
     "jsdom": "^27.0.0",
     "vite": "^5.4.20",
-    "vite-plugin-singlefile": "^2.3.0",
+    "vite-plugin-pwa": "^1.0.0",    
     "vite-plugin-static-copy": "^3.1.4",
     "vitest": "^3.2.4",
     "web-ext": "^9.0.0"
