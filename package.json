@@ -8,13 +8,14 @@
     "clean": "rm -rf dist",
     "build": "npm run clean && vite build",
     "preview": "vite preview",
-    "web-ext:run": "npm run build && web-ext run --source-dir=dist --no-input",
+    "web-ext:run": "npm run build:firefox && web-ext run --source-dir=dist --no-input",
     "web-ext:lint": "web-ext lint --source-dir=dist",
-    "web-ext:build": "npm run build && web-ext build --source-dir=dist --artifacts-dir=web-ext-artifacts",
-    "build:chrome": "npm run clean && TARGET_BROWSER=chrome npm run build",
     "build:firefox": "npm run clean && TARGET_BROWSER=firefox npm run build",
-    "test": "vitest",
-    "build:pwa": "npm run clean && VITE_PWA=true vite build && mv dist/index.pwa.html dist/index.html"
+    "build:chrome": "npm run clean && TARGET_BROWSER=chrome npm run build",
+    "build:pwa": "npm run clean && VITE_PWA=true vite build && mv dist/index.pwa.html dist/index.html",
+    "release:firefox": "npm run build:firefox && web-ext build --source-dir=dist --artifacts-dir=web-ext-artifacts --overwrite-dest",
+    "release:chrome": "npm run build:chrome && web-ext build --source-dir=dist --artifacts-dir=web-ext-artifacts --overwrite-dest",
+    "test": "vitest"
   },
   "dependencies": {
     "@toast-ui/editor": "^3.2.2",

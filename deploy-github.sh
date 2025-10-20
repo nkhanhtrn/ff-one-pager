@@ -4,7 +4,7 @@
 set -e
 
 # Build the project
-npm run build:singlefile
+npm run build:pwa
 
 # Check if gh-pages branch exists
 if git show-ref --quiet refs/heads/gh-pages; then
