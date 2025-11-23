@@ -4,6 +4,9 @@ echo "Building and packaging Chrome extension..."
 echo "Zipping source files..."
 # Remove any existing release artifacts
 set -e
+
+# Run test coverage before deploying
+npm run test:coverage
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
 PROJECT_ROOT="$SCRIPT_DIR/.."
 cd "$PROJECT_ROOT"
