@@ -26,20 +26,6 @@ export default defineConfig({
             ],
             workbox: {
               globPatterns: ['**/*.{js,css,html,png,svg,json}']
-            },
-            manifest: {
-              name: 'One Pager',
-              short_name: 'One Pager',
-              description: 'Offline-capable one-pager application',
-              theme_color: '#2d2d2d',
-              background_color: '#2d2d2d',
-              display: 'standalone',
-              start_url: './index.pwa.html',
-              icons: [
-                { src: 'icon-128.png', sizes: '128x128', type: 'image/png' },
-                { src: 'icon-256.png', sizes: '256x256', type: 'image/png' },
-                { src: 'icon-48.png', sizes: '48x48', type: 'image/png' }
-              ]
             }
           })
         ]
@@ -48,10 +34,14 @@ export default defineConfig({
     viteStaticCopy({
       targets: (() => {
         const targets = [];
-        if (targetBrowser === 'chrome') {
-          targets.push({ src: 'manifest.chrome.json', dest: '.', rename: 'manifest.json' });
+        if (isPWA) {
+          targets.push({ src: 'manifest.webmanifest', dest: '.' });
         } else {
-          targets.push({ src: 'manifest.firefox.json', dest: '.', rename: 'manifest.json' });
+          if (targetBrowser === 'chrome') {
+            targets.push({ src: 'manifest.chrome.json', dest: '.', rename: 'manifest.json' });
+          } else {
+            targets.push({ src: 'manifest.firefox.json', dest: '.', rename: 'manifest.json' });
+          }
         }
         return targets;
       })()

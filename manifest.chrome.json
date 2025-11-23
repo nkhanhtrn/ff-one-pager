@@ -15,9 +15,7 @@
       "96": "icon.svg"
     }
   },
-  "permissions": [
-    "activeTab"
-  ],
+  "permissions": [],
   "chrome_url_overrides": {
     "newtab": "index.html"
   }
