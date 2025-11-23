@@ -1,4 +1,4 @@
-
+# ![Coverage](./coverage/badge.svg)
 
 
 # FF One Pager – Browser Extension (Firefox & Chrome)

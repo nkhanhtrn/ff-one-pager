@@ -57,7 +57,11 @@ export default defineConfig({
       })()
     })
   ],
-  base: './',
+  base: '/one-pager/',
+  server: {
+    port: 3000,
+    open: '/one-pager/'
+  },
   build: {
     rollupOptions: {
       input: {
