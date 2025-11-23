@@ -19,14 +19,7 @@ This site contains the code coverage report for the project.
 > Detailed per-file and per-folder coverage is available in the full report above.
 
 
-![Coverage](https://img.shields.io/badge/coverage-0%25-red.svg)
-
-
-
-![Coverage](https://img.shields.io/badge/coverage-%25-brightgreen.svg)
-
 
 
 See the `coverage/` directory for detailed coverage information.
 
-See the `coverage/` directory for detailed coverage information.
