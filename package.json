@@ -10,7 +10,8 @@
     "dev:pwa": "VITE_PWA=true vite build && cp dist/index.pwa.html dist/index.html && npx vite preview",
     "deploy:firefox": "sh ./scripts/deploy-firefox.sh",
     "deploy:chrome": "sh ./scripts/deploy-chrome.sh",
-    "deploy:pwa": "sh ./scripts/deploy-pwa.sh"
+    "deploy:pwa": "sh ./scripts/deploy-pwa.sh",
+    "test:coverage": "vitest run --coverage"
     },
     "dependencies": {
       "@toast-ui/editor": "^3.2.2",

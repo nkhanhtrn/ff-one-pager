@@ -1,57 +1,28 @@
-# ![Coverage](./coverage/badge.svg)
 
+# FF One Pager – Browser Extension
 
-# FF One Pager – Browser Extension (Firefox & Chrome)
+Browser extension for Firefox & Chrome.
 
+## Quick Start
 
+```bash
+git clone https://github.com/nkhanhtrn/one-pager.git
+cd one-pager
+npm install
+# See below for build and deploy commands
+```
 
-## Build Instructions (Firefox & Chrome)
+## Build & Deploy Commands
 
-### Operating System and Build Environment Requirements
+Refer to `package.json` for the most up-to-date scripts. Common commands:
 
-- **Supported OS:** Linux, macOS, Windows (WSL recommended for Windows)
-- **Node.js:** v18 or newer (LTS recommended)
-- **npm:** v9 or newer
-- **Firefox:** Latest stable or ESR (for testing)
-- **Build tools:**
-  - [Vite](https://vitejs.dev/) (installed via npm)
-  - [web-ext](https://extensionworkshop.com/documentation/develop/web-ext-command-reference/) (installed via npm)
-  - [ImageMagick](https://imagemagick.org/) (for icon conversion, optional)
+- Development (Vite):
+	- `npm run dev` – Start dev server
+	- `npm run dev:firefox` – Build and run in Firefox
+	- `npm run dev:chrome` – Build and run in Chrome
+	- `npm run dev:pwa` – Build and preview PWA
 
-### Required Programs & Installation
-
-1. **Node.js & npm**
-	- Download and install from [nodejs.org](https://nodejs.org/)
-	- Verify installation:
-	  ```bash
-	  node --version
-	  npm --version
-	  ```
-
-
-### Step-by-Step Build Instructions (Firefox & Chrome)
-
-1. **Clone the repository**
-	```bash
-	git clone https://github.com/nkhanhtrn/one-pager.git
-	cd one-pager
-	```
-
-2. **Install dependencies**
-	```bash
-	npm install
-	```
-
-
-
-4. **Build for Firefox**
-	```bash
-	npm run build:firefox
-	```
-	This creates the production files in the `dist/` folder with the Firefox manifest.
-
-5. **Build for Chrome**
-	```bash
-	npm run build:chrome
-	```
-	This creates the production files in the `dist/` folder with the Chrome manifest.
+- Deploy:
+	- `npm run deploy:firefox` – Deploy Firefox extension
+	- `npm run deploy:chrome` – Deploy Chrome extension
+	- `npm run deploy:pwa` – Deploy PWA to Github page
