@@ -23,7 +23,7 @@
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "ff-one-pager@example.com",
+      "id": "one-pager@example.com",
       "strict_min_version": "109.0"
     }
   }

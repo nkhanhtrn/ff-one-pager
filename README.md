@@ -33,8 +33,8 @@
 
 1. **Clone the repository**
 	```bash
-	git clone https://github.com/nkhanhtrn/ff-one-pager.git
-	cd ff-one-pager
+	git clone https://github.com/nkhanhtrn/one-pager.git
+	cd one-pager
 	```
 
 2. **Install dependencies**

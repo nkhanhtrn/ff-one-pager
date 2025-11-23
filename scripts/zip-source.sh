@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Zip all source code for review, excluding node_modules, hidden folders, and release artifacts
 # Usage: ./zip-source.sh [output_dir]
 

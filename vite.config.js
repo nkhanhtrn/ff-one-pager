@@ -8,6 +8,8 @@ import { VitePWA } from 'vite-plugin-pwa';
 const targetBrowser = process.env.TARGET_BROWSER || 'firefox';
 const isPWA = process.env.VITE_PWA === 'true';
 
+const base = './';
+
 export default defineConfig({
   plugins: [
     vue(),
@@ -47,7 +49,7 @@ export default defineConfig({
       })()
     })
   ],
-  base: '/one-pager/',
+  base,
   server: {
     port: 3000,
     open: '/one-pager/'

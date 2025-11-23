@@ -1,39 +1,30 @@
 {
-  "name": "ff-one-pager",
+  "name": "one-pager",
   "version": "1.0.0",
   "description": "Browser extension one-pager with Vue.js",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "clean": "rm -rf dist",
-    "build": "npm run clean && vite build",
-    "preview": "vite preview",
-    "web-ext:run": "npm run build:firefox && web-ext run --source-dir=dist --no-input",
-    "web-ext:lint": "web-ext lint --source-dir=dist",
-    "build:firefox": "npm run clean && TARGET_BROWSER=firefox npm run build",
-    "build:chrome": "npm run clean && TARGET_BROWSER=chrome npm run build",
-    "build:pwa": "npm run clean && VITE_PWA=true vite build",
-    "release:firefox": "npm run build:firefox && web-ext build --source-dir=dist --artifacts-dir=web-ext-artifacts --overwrite-dest",
-    "release:chrome": "npm run build:chrome && web-ext build --source-dir=dist --artifacts-dir=web-ext-artifacts --overwrite-dest",
-    "deploy:firefox": "sh ./deploy-firefox.sh",
-    "deploy:chrome": "sh ./deploy-chrome.sh",
-    "deploy": "sh ./deploy-github.sh",
-    "test": "vitest",
-    "test:coverage": "vitest run --coverage"
-  },
-  "dependencies": {
-    "@toast-ui/editor": "^3.2.2",
-    "vue": "^3.4.0"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-vue": "^5.2.4",
-    "@vitest/coverage-v8": "^3.2.4",
-    "@vue/test-utils": "^2.4.6",
-    "jsdom": "^27.0.0",
-    "vite": "^5.4.20",
-    "vite-plugin-pwa": "^1.0.0",
-    "vite-plugin-static-copy": "^3.1.4",
-    "vitest": "^3.2.4",
-    "web-ext": "^9.0.0"
-  }
+    "dev:firefox": "TARGET_BROWSER=firefox vite build && web-ext run --source-dir=dist --no-input",
+    "dev:chrome": "TARGET_BROWSER=chrome vite build && (chromium-browser --disable-extensions-except=$PWD/dist --load-extension=$PWD/dist || google-chrome --disable-extensions-except=$PWD/dist --load-extension=$PWD/dist)",
+    "dev:pwa": "VITE_PWA=true vite build && cp dist/index.pwa.html dist/index.html && npx vite preview",
+    "deploy:firefox": "sh ./scripts/deploy-firefox.sh",
+    "deploy:chrome": "sh ./scripts/deploy-chrome.sh",
+    "deploy:pwa": "sh ./scripts/deploy-pwa.sh"
+    },
+    "dependencies": {
+      "@toast-ui/editor": "^3.2.2",
+      "vue": "^3.4.0"
+    },
+    "devDependencies": {
+      "@vitejs/plugin-vue": "^5.2.4",
+      "@vitest/coverage-v8": "^3.2.4",
+      "@vue/test-utils": "^2.4.6",
+      "jsdom": "^27.0.0",
+      "vite": "^5.4.20",
+      "vite-plugin-pwa": "^1.0.0",
+      "vite-plugin-static-copy": "^3.1.4",
+      "vitest": "^3.2.4",
+      "web-ext": "^9.0.0"
+    }
 }
