@@ -1,6 +1,6 @@
 <template>
   <div>
-  <button class="settings-btn" @click="showSettings = !showSettings" aria-label="Settings">
+    <button class="settings-btn" @click="showSettings = !showSettings" aria-label="Settings">
       <span class="settings-icon">&#8230;</span>
     </button>
     <ToastEditor :dark="isDarkMode" />
@@ -17,11 +17,11 @@
 </template>
 
 <script>
+
 import ToastEditor from './components/ToastEditor.vue';
 import SettingsModal from './components/SettingsModal.vue';
 import Clock from './components/Clock.vue';
-import { Storage, StorageKeys } from './utils/storage.js';
-import { watch } from 'vue';
+import { Storage } from './utils/storage.js';
 
 export default {
   name: 'App',
@@ -29,6 +29,12 @@ export default {
     ToastEditor,
     SettingsModal,
     Clock
+  },
+  props: {
+    storage: {
+      type: Object,
+      default: () => Storage
+    }
   },
   data() {
     return {
@@ -59,17 +65,17 @@ export default {
     },
     toggleDarkMode(val) {
       this.isDarkMode = val;
-      Storage.setBool(StorageKeys.DARK, val);
+      this.storage.setDarkMode(val);
     },
     toggleShowClock(val) {
       this.showClock = val;
-      Storage.setBool(StorageKeys.SHOW_CLOCK, val);
+      this.storage.setShowClock(val);
     },
     getInitialDarkMode() {
-      return Storage.getBool(StorageKeys.DARK, true); // Default to dark mode if no preference is stored
+      return this.storage.getDarkMode(true); // Default to dark mode if no preference is stored
     },
     getInitialShowClock() {
-        return Storage.getBool(StorageKeys.SHOW_CLOCK, true);
+      return this.storage.getShowClock(true);
     },
   }
 }
@@ -108,4 +114,8 @@ export default {
   color: inherit;
   outline: none;
 }
+</style>
+
+<style scoped>
+/* ToastEditor handles its own layout and style */
 </style>

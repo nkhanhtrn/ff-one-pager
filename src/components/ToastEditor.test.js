@@ -46,7 +46,7 @@ describe('ToastEditor', () => {
       const wrapper = mount(ToastEditor, {
         props: { dark: true }
       });
-      // Mock Storage.getString to return null
+      // Mock Storage.getContent to return null
       wrapper.vm.$options.methods.getSavedContent = ToastEditor.methods.getSavedContent;
       vi.spyOn(wrapper.vm, 'getSavedContent').mockImplementation(function() {
         return this.$options.__file.match(/ToastEditor.vue/) ? '# Hello, Toast UI Editor!' : null;
@@ -58,7 +58,7 @@ describe('ToastEditor', () => {
       const wrapper = mount(ToastEditor, {
         props: { dark: true }
       });
-      // Mock Storage.getString to return a value
+      // Mock Storage.getContent to return a value
       const saved = 'Saved markdown';
       wrapper.vm.$options.methods.getSavedContent = ToastEditor.methods.getSavedContent;
       vi.spyOn(wrapper.vm, 'getSavedContent').mockImplementation(() => saved);

@@ -5,13 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "deploy": "npm run deploy:pwa",
     "dev:firefox": "TARGET_BROWSER=firefox vite build && web-ext run --source-dir=dist --no-input",
     "dev:chrome": "TARGET_BROWSER=chrome vite build && (chromium-browser --disable-extensions-except=$PWD/dist --load-extension=$PWD/dist || google-chrome --disable-extensions-except=$PWD/dist --load-extension=$PWD/dist)",
     "dev:pwa": "VITE_PWA=true vite build && cp dist/index.pwa.html dist/index.html && npx vite preview",
     "deploy:firefox": "sh ./scripts/deploy-firefox.sh",
     "deploy:chrome": "sh ./scripts/deploy-chrome.sh",
     "deploy:pwa": "sh ./scripts/deploy-pwa.sh",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "test": "vitest run"
     },
     "dependencies": {
       "@toast-ui/editor": "^3.2.2",

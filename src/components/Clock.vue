@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { Storage, StorageKeys } from '../utils/storage.js';
+import { Storage } from '../utils/storage.js';
 
 export default {
   name: 'Clock',
@@ -37,11 +37,11 @@ export default {
     },
     toggleHourMode() {
       this.hour12 = !this.hour12;
-      Storage.setBool(StorageKeys.CLOCK_HOUR12, this.hour12);
+      Storage.setClockHour12(this.hour12);
       this.updateTime();
     },
     getInitialHour12() {
-      return Storage.getBool(StorageKeys.CLOCK_HOUR12, false);
+      return Storage.getClockHour12(false);
     }
 }
 }

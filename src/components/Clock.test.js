@@ -42,11 +42,11 @@ describe('Clock.vue', () => {
     wrapper.vm.toggleHourMode()
     expect(wrapper.vm.hour12).toBe(!initial)
     // Check localStorage value
-    expect(Storage.getBool(StorageKeys.CLOCK_HOUR12, initial)).toBe(!initial)
+    expect(Storage.getClockHour12(initial)).toBe(!initial)
     // Toggle back
     wrapper.vm.toggleHourMode()
     expect(wrapper.vm.hour12).toBe(initial)
-    expect(Storage.getBool(StorageKeys.CLOCK_HOUR12, !initial)).toBe(initial)
+    expect(Storage.getClockHour12(!initial)).toBe(initial)
   })
 
   it('updateTime sets timeStr and ampm correctly in 12-hour mode', () => {

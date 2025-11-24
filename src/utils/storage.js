@@ -1,31 +1,35 @@
-// src/utils/storage.js
-
-// The following methods are already present in the Storage object and do not need to be removed.
-// src/utils/storage.js
-
-export const StorageKeys = {
-  DARK: 'dark-mode-enabled',
-  SHOW_CLOCK: 'show-clock-enabled',
-  CLOCK_HOUR12: 'clock-hour12-enabled',
-  CONTENT: 'page-content',
-};
 
 export const Storage = {
-  getBool(key, fallback = false) {
-    const stored = localStorage.getItem(key);
+  getDarkMode(defaultValue = true) {
+    const stored = localStorage.getItem('dark-mode-enabled');
     if (stored !== null) return stored === '1';
-    return fallback;
+    return defaultValue;
   },
-  setBool(key, value) {
-    localStorage.setItem(key, value ? '1' : '0');
+  setDarkMode(value) {
+    localStorage.setItem('dark-mode-enabled', value ? '1' : '0');
   },
-  // The following methods are already present in the Storage object and do not need to be added again.
-  getString(key, fallback = '') {
-    const stored = localStorage.getItem(key);
+  getShowClock(defaultValue = true) {
+    const stored = localStorage.getItem('show-clock-enabled');
+    if (stored !== null) return stored === '1';
+    return defaultValue;
+  },
+  setShowClock(value) {
+    localStorage.setItem('show-clock-enabled', value ? '1' : '0');
+  },
+  getClockHour12(defaultValue = false) {
+    const stored = localStorage.getItem('clock-hour12-enabled');
+    if (stored !== null) return stored === '1';
+    return defaultValue;
+  },
+  setClockHour12(value) {
+    localStorage.setItem('clock-hour12-enabled', value ? '1' : '0');
+  },
+  getContent(defaultValue = '') {
+    const stored = localStorage.getItem('page-content');
     if (stored !== null) return stored;
-      return fallback;
-    },
-  setString(key, value) {
-    localStorage.setItem(key, value);
+    return defaultValue;
+  },
+  setContent(value) {
+    localStorage.setItem('page-content', value);
   },
 };

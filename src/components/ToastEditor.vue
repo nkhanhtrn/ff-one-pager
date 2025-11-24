@@ -7,9 +7,7 @@
 import Editor from '@toast-ui/editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
-import { Storage, StorageKeys } from '../utils/storage.js';
-
-const STORAGE_KEY = StorageKeys.CONTENT;
+import { Storage } from '../utils/storage.js';
 const initialContent = `# Hello, Toast UI Editor!
 
 Welcome to One Pager! You can use **Markdown** to format your notes.
@@ -38,7 +36,7 @@ export default {
     this.editor = this.createEditor(savedContent);
     this.editor.on('change', () => {
       const content = this.editor.getMarkdown();
-      Storage.setString(STORAGE_KEY, content);
+      Storage.setContent(content);
     });
     // Apply dark mode on mount
     this.applyDarkMode(this.dark);
@@ -57,7 +55,7 @@ export default {
     createEditor(initialValue) {
       return new Editor({
         el: document.querySelector('#editor'),
-        height: '500px',
+        height: '100%',
         initialEditType: 'markdown',
         previewStyle: 'tab',
         initialValue,
@@ -82,7 +80,7 @@ export default {
       }
     },
     getSavedContent() {
-      const saved = Storage.getString(STORAGE_KEY, null);
+      const saved = Storage.getContent(null);
       if (saved === null) {
         return initialContent;
       }
@@ -92,27 +90,35 @@ export default {
 }
 </script>
 <style scoped>
+
 .editor-outer {
   width: 100vw;
   height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background: var(--editor-bg);
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  padding: 32px;
 }
 .editor-textarea {
-  width: 80vw;
-  height: 85vh;
+  width: 100%;
+  height: 100%;
   background: var(--editor-bg);
   box-sizing: border-box;
+  border-radius: 16px;
+  padding: 24px;
 }
 
 @media (max-width: 420px) {
+  .editor-outer {
+    padding: 0;
+  }
   .editor-textarea {
     width: 100vw;
     height: 100vh;
-    box-sizing: unset;
-    padding: 10px 0;
+    box-sizing: border-box;
+    padding: 8px 0;
+    border-radius: 0;
   }
 }
 </style>
