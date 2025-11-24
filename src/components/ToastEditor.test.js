@@ -1,14 +1,18 @@
 
 
-    it('emits update:content event on change', () => {
+    it('emits update:content event on change', async () => {
       const wrapper = mount(ToastEditor, {
         props: { dark: true, content: 'foo' }
       });
+      // Wait for editor to be initialized
+      while (!wrapper.vm.editor) {
+        await wrapper.vm.$nextTick();
+      }
       const editorInstance = wrapper.vm.editor;
       editorInstance.getMarkdown = vi.fn(() => 'foo{"a":1}');
       editorInstance.setMarkdown = vi.fn();
       wrapper.vm.prevBuffer = 'foo';
-      wrapper.vm.editor.on.mock.calls[0][1]();
+      await wrapper.vm.editor.on.mock.calls[0][1]();
       expect(wrapper.emitted('update:content')).toBeTruthy();
       expect(wrapper.emitted('update:content')[0][0]).toBe('foo{\n  "a": 1\n}');
     });
@@ -17,7 +21,10 @@
     const wrapper = mount(ToastEditor, {
       props: { dark: true, content: 'Existing content\n' }
     });
-    // Mock the editor API
+    // Wait for editor to be initialized
+    while (!wrapper.vm.editor) {
+      await wrapper.vm.$nextTick();
+    }
     const editorInstance = wrapper.vm.editor;
     // Simulate user adding minified JSON after existing content
     const prevBuffer = 'Existing content\n';
@@ -31,7 +38,7 @@
     // Set prevBuffer to simulate previous state
     wrapper.vm.prevBuffer = prevBuffer;
     // Trigger the change event
-    wrapper.vm.editor.on.mock.calls[0][1]();
+    await wrapper.vm.editor.on.mock.calls[0][1]();
     // The new content should be formatted, existing should be untouched
     expect(setMarkdownValue).toBe(
       'Existing content\n' + '{\n  "a": 1,\n  "b": [\n    2,\n    3\n  ]\n}'
@@ -81,27 +88,29 @@ describe('ToastEditor', () => {
   });
 
   describe('getSavedContent', () => {
-    it('returns initialContent if no saved content', () => {
+    it('returns initialContent if no saved content', async () => {
       const wrapper = mount(ToastEditor, {
         props: { dark: true }
       });
       // Mock Storage.getContent to return null
       wrapper.vm.$options.methods.getSavedContent = ToastEditor.methods.getSavedContent;
-      vi.spyOn(wrapper.vm, 'getSavedContent').mockImplementation(function() {
+      vi.spyOn(wrapper.vm, 'getSavedContent').mockImplementation(async function() {
         return this.$options.__file.match(/ToastEditor.vue/) ? '# Hello, Toast UI Editor!' : null;
       });
-      expect(wrapper.vm.getSavedContent()).toBe('# Hello, Toast UI Editor!');
+      const result = await wrapper.vm.getSavedContent();
+      expect(result).toBe('# Hello, Toast UI Editor!');
     });
 
-    it('returns saved content if present', () => {
+    it('returns saved content if present', async () => {
       const wrapper = mount(ToastEditor, {
         props: { dark: true }
       });
       // Mock Storage.getContent to return a value
       const saved = 'Saved markdown';
       wrapper.vm.$options.methods.getSavedContent = ToastEditor.methods.getSavedContent;
-      vi.spyOn(wrapper.vm, 'getSavedContent').mockImplementation(() => saved);
-      expect(wrapper.vm.getSavedContent()).toBe(saved);
+      vi.spyOn(wrapper.vm, 'getSavedContent').mockImplementation(async () => saved);
+      const result = await wrapper.vm.getSavedContent();
+      expect(result).toBe(saved);
     });
   });
 });

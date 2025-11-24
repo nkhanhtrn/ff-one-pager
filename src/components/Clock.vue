@@ -13,10 +13,11 @@ export default {
     return {
       timeStr: '',
       ampm: '',
-      hour12: this.getInitialHour12()
+      hour12: false
     };
   },
-  mounted() {
+  async mounted() {
+    this.hour12 = await Storage.getClockHour12(false);
     this.updateTime();
     this.interval = setInterval(this.updateTime, 1000);
   },
@@ -35,13 +36,10 @@ export default {
         this.ampm = '';
       }
     },
-    toggleHourMode() {
+    async toggleHourMode() {
       this.hour12 = !this.hour12;
-      Storage.setClockHour12(this.hour12);
+      await Storage.setClockHour12(this.hour12);
       this.updateTime();
-    },
-    getInitialHour12() {
-      return Storage.getClockHour12(false);
     }
 }
 }

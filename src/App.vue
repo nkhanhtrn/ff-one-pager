@@ -40,18 +40,22 @@ export default {
   data() {
     return {
       showSettings: false,
-      isDarkMode: this.getInitialDarkMode(),
-      showClock: this.getInitialShowClock(),
+      isDarkMode: true,
+      showClock: true,
       buffer: '',
     };
   },
-    computed: {
-      formattedContent() {
-        return formatJson(this.buffer);
-      }
-    },
-  mounted() {
+  computed: {
+    formattedContent() {
+      return formatJson(this.buffer);
+    }
+  },
+  async mounted() {
     document.addEventListener('mousedown', this.handleClickOutside);
+    // Async storage initialization
+    this.isDarkMode = await this.storage.getDarkMode(true);
+    this.showClock = await this.storage.getShowClock(true);
+    this.buffer = await this.storage.getContent('');
   },
   beforeUnmount() {
     document.removeEventListener('mousedown', this.handleClickOutside);
@@ -70,19 +74,13 @@ export default {
       }
       this.showSettings = false;
     },
-    toggleDarkMode(val) {
+    async toggleDarkMode(val) {
       this.isDarkMode = val;
-      this.storage.setDarkMode(val);
+      await this.storage.setDarkMode(val);
     },
-    toggleShowClock(val) {
+    async toggleShowClock(val) {
       this.showClock = val;
-      this.storage.setShowClock(val);
-    },
-    getInitialDarkMode() {
-      return this.storage.getDarkMode(true); // Default to dark mode if no preference is stored
-    },
-    getInitialShowClock() {
-      return this.storage.getShowClock(true);
+      await this.storage.setShowClock(val);
     },
   }
 }

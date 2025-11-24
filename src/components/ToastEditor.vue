@@ -38,13 +38,17 @@ export default {
   },
   data() {
     return {
-      buffer: this.content || this.getSavedContent(),
-      prevBuffer: this.content || this.getSavedContent(),
+      buffer: this.content || '',
+      prevBuffer: this.content || '',
     };
   },
-  mounted() {
+  async mounted() {
+    // Load saved content asynchronously
+    const saved = await this.getSavedContent();
+    this.buffer = this.content || saved;
+    this.prevBuffer = this.content || saved;
     this.editor = this.createEditor(this.buffer);
-    this.editor.on('change', () => {
+    this.editor.on('change', async () => {
       const content = this.editor.getMarkdown();
       const nextBuffer = formatNewContent(this.prevBuffer, content);
       if (nextBuffer !== content) {
@@ -52,6 +56,7 @@ export default {
       }
       this.buffer = nextBuffer;
       this.prevBuffer = nextBuffer;
+      await Storage.setContent(nextBuffer);
       this.$emit('update:content', nextBuffer);
     });
     // Apply dark mode on mount
@@ -96,8 +101,8 @@ export default {
         root.style.setProperty('--editor-font-size', '1.1em');
       }
     },
-    getSavedContent() {
-      const saved = Storage.getContent(null);
+    async getSavedContent() {
+      const saved = await Storage.getContent(null);
       if (saved === null) {
         return initialContent;
       }
