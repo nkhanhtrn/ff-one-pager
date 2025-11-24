@@ -1,7 +1,7 @@
 
-# FF One Pager – Browser Extension
+# One Pager – Browser Extension
 
-Browser extension for Firefox & Chrome.
+Simple notebook in your newtab page
 
 ## Quick Start
 
