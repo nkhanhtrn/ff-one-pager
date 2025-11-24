@@ -26,3 +26,8 @@ Refer to `package.json` for the most up-to-date scripts. Common commands:
 	- `npm run deploy:firefox` – Deploy Firefox extension
 	- `npm run deploy:chrome` – Deploy Chrome extension
 	- `npm run deploy:pwa` – Deploy PWA to Github page
+
+
+## Submission
+- Firefox: https://addons.mozilla.org/en-US/developers/addon/one-pager/versions/submit/
+- Chrome: https://chrome.google.com/webstore/devconsole/834493da-5cb4-47f9-88e5-647fd4b372a1/bgjlilgpboonhklljncmmnaimdamdpib/edit/package
