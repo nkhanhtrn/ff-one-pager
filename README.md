@@ -11,12 +11,16 @@ This site contains the code coverage report for the project.
 
 | Metric     | Percent   | Covered / Total |
 |------------|-----------|-----------------|
-| Statements |     | 306/346       |
-| Branches   |     | 54/58         |
-| Functions  |     | 28/39         |
-| Lines      |     | 306/346       |
+| Statements |     | 316/356       |
+| Branches   |     | 67/71         |
+| Functions  |     | 33/44         |
+| Lines      |     | 316/356       |
 
 > Detailed per-file and per-folder coverage is available in the full report above.
+
+
+![Coverage](https://img.shields.io/badge/coverage-0%25-red.svg)
+
 
 
 

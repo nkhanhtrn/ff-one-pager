@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>28/28</span>
+                <span class='fraction'>34/34</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>22/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>28/28</span>
+                <span class='fraction'>34/34</span>
             </div>
         
             
@@ -94,27 +94,35 @@
 <a name='L29'></a><a href='#L29'>29</a>
 <a name='L30'></a><a href='#L30'>30</a>
 <a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">49x</span>
-<span class="cline-any cline-yes">49x</span>
-<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">9x</span>
@@ -125,35 +133,39 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// src/utils/storage.js
-&nbsp;
-// The following methods are already present in the Storage object and do not need to be removed.
-// src/utils/storage.js
-&nbsp;
-export const StorageKeys = {
-  DARK: 'dark-mode-enabled',
-  SHOW_CLOCK: 'show-clock-enabled',
-  CLOCK_HOUR12: 'clock-hour12-enabled',
-  CONTENT: 'page-content',
-};
-&nbsp;
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&nbsp;
 export const Storage = {
-  getBool(key, fallback = false) {
-    const stored = localStorage.getItem(key);
+  getDarkMode(defaultValue = true) {
+    const stored = localStorage.getItem('dark-mode-enabled');
     if (stored !== null) return stored === '1';
-    return fallback;
+    return defaultValue;
   },
-  setBool(key, value) {
-    localStorage.setItem(key, value ? '1' : '0');
+  setDarkMode(value) {
+    localStorage.setItem('dark-mode-enabled', value ? '1' : '0');
   },
-  // The following methods are already present in the Storage object and do not need to be added again.
-  getString(key, fallback = '') {
-    const stored = localStorage.getItem(key);
+  getShowClock(defaultValue = true) {
+    const stored = localStorage.getItem('show-clock-enabled');
+    if (stored !== null) return stored === '1';
+    return defaultValue;
+  },
+  setShowClock(value) {
+    localStorage.setItem('show-clock-enabled', value ? '1' : '0');
+  },
+  getClockHour12(defaultValue = false) {
+    const stored = localStorage.getItem('clock-hour12-enabled');
+    if (stored !== null) return stored === '1';
+    return defaultValue;
+  },
+  setClockHour12(value) {
+    localStorage.setItem('clock-hour12-enabled', value ? '1' : '0');
+  },
+  getContent(defaultValue = '') {
+    const stored = localStorage.getItem('page-content');
     if (stored !== null) return stored;
-      return fallback;
-    },
-  setString(key, value) {
-    localStorage.setItem(key, value);
+    return defaultValue;
+  },
+  setContent(value) {
+    localStorage.setItem('page-content', value);
   },
 };
 &nbsp;</pre></td></tr></table></pre>
@@ -163,7 +175,7 @@ export const Storage = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-11-23T23:57:04.501Z
+                at 2025-11-24T00:36:31.272Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
