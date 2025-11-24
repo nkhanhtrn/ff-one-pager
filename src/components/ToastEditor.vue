@@ -8,7 +8,8 @@ import Editor from '@toast-ui/editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 import { Storage } from '../utils/storage.js';
-const initialContent = `# Hello, Toast UI Editor!
+import { formatNewContent } from '../utils/formatNewContent.js';
+const initialContent = `# Hello World!
 
 Welcome to One Pager! You can use **Markdown** to format your notes.
 
@@ -29,14 +30,29 @@ export default {
     dark: {
       type: Boolean,
       default: true
+    },
+    content: {
+      type: String,
+      default: ''
     }
   },
+  data() {
+    return {
+      buffer: this.content || this.getSavedContent(),
+      prevBuffer: this.content || this.getSavedContent(),
+    };
+  },
   mounted() {
-    const savedContent = this.getSavedContent();
-    this.editor = this.createEditor(savedContent);
+    this.editor = this.createEditor(this.buffer);
     this.editor.on('change', () => {
       const content = this.editor.getMarkdown();
-      Storage.setContent(content);
+      const nextBuffer = formatNewContent(this.prevBuffer, content);
+      if (nextBuffer !== content) {
+        this.editor.setMarkdown(nextBuffer);
+      }
+      this.buffer = nextBuffer;
+      this.prevBuffer = nextBuffer;
+      this.$emit('update:content', nextBuffer);
     });
     // Apply dark mode on mount
     this.applyDarkMode(this.dark);
@@ -52,6 +68,7 @@ export default {
     }
   },
   methods: {
+    // formatNewContent is now imported from utils/formatNewContent.js
     createEditor(initialValue) {
       return new Editor({
         el: document.querySelector('#editor'),
@@ -85,6 +102,20 @@ export default {
         return initialContent;
       }
       return saved;
+    },
+    setContent(newContent) {
+      if (this.editor) {
+        this.editor.setMarkdown(newContent);
+        this.buffer = newContent;
+      }
+    }
+  },
+  watch: {
+    content(newVal) {
+      this.setContent(newVal);
+    },
+    dark(val) {
+      this.applyDarkMode(val);
     }
   }
 }

@@ -1,3 +1,42 @@
+
+
+    it('emits update:content event on change', () => {
+      const wrapper = mount(ToastEditor, {
+        props: { dark: true, content: 'foo' }
+      });
+      const editorInstance = wrapper.vm.editor;
+      editorInstance.getMarkdown = vi.fn(() => 'foo{"a":1}');
+      editorInstance.setMarkdown = vi.fn();
+      wrapper.vm.prevBuffer = 'foo';
+      wrapper.vm.editor.on.mock.calls[0][1]();
+      expect(wrapper.emitted('update:content')).toBeTruthy();
+      expect(wrapper.emitted('update:content')[0][0]).toBe('foo{\n  "a": 1\n}');
+    });
+  it('formats only new content as JSON, not existing content', async () => {
+    // Setup: initial content is plain text
+    const wrapper = mount(ToastEditor, {
+      props: { dark: true, content: 'Existing content\n' }
+    });
+    // Mock the editor API
+    const editorInstance = wrapper.vm.editor;
+    // Simulate user adding minified JSON after existing content
+    const prevBuffer = 'Existing content\n';
+    const newContent = '{"a":1,"b":[2,3]}';
+    const combined = prevBuffer + newContent;
+    // Patch getMarkdown to return the combined content
+    editorInstance.getMarkdown = vi.fn(() => combined);
+    // Patch setMarkdown to capture the result
+    let setMarkdownValue = '';
+    editorInstance.setMarkdown = vi.fn(val => { setMarkdownValue = val; });
+    // Set prevBuffer to simulate previous state
+    wrapper.vm.prevBuffer = prevBuffer;
+    // Trigger the change event
+    wrapper.vm.editor.on.mock.calls[0][1]();
+    // The new content should be formatted, existing should be untouched
+    expect(setMarkdownValue).toBe(
+      'Existing content\n' + '{\n  "a": 1,\n  "b": [\n    2,\n    3\n  ]\n}'
+    );
+  });
 import { mount } from '@vue/test-utils';
 import ToastEditor from './ToastEditor.vue';
 import { vi } from 'vitest';

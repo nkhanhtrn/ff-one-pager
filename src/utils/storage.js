@@ -33,3 +33,4 @@ export const Storage = {
     localStorage.setItem('page-content', value);
   },
 };
+

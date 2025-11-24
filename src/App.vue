@@ -3,7 +3,7 @@
     <button class="settings-btn" @click="showSettings = !showSettings" aria-label="Settings">
       <span class="settings-icon">&#8230;</span>
     </button>
-    <ToastEditor :dark="isDarkMode" />
+    <ToastEditor :dark="isDarkMode" :content="formattedContent" />
     <SettingsModal
       :visible="showSettings"
       :dark="isDarkMode"
@@ -19,6 +19,7 @@
 <script>
 
 import ToastEditor from './components/ToastEditor.vue';
+import { formatJson } from './utils/json.js';
 import SettingsModal from './components/SettingsModal.vue';
 import Clock from './components/Clock.vue';
 import { Storage } from './utils/storage.js';
@@ -41,8 +42,14 @@ export default {
       showSettings: false,
       isDarkMode: this.getInitialDarkMode(),
       showClock: this.getInitialShowClock(),
+      buffer: '',
     };
   },
+    computed: {
+      formattedContent() {
+        return formatJson(this.buffer);
+      }
+    },
   mounted() {
     document.addEventListener('mousedown', this.handleClickOutside);
   },

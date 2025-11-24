@@ -1,4 +1,6 @@
 import { Storage, StorageKeys } from './storage.js';
+import { formatJson } from './json.js';
+import { formatJson } from './storage.js';
 
 describe('Storage interface', () => {
   beforeEach(() => {
