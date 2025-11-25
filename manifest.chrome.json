@@ -1,18 +1,18 @@
 {
   "manifest_version": 3,
   "name": "One Pager",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "Quickly jot down notes on a single page new tab with markdown support.",
   "icons": {
-    "48": "icon.svg",
-    "96": "icon.svg"
+    "48": "icon-48.png",
+    "96": "icon-96.png"
   },
   "action": {
     "default_popup": "index.html",
     "default_title": "One Pager",
     "default_icon": {
-      "48": "icon.svg",
-      "96": "icon.svg"
+      "48": "icon-48.png",
+      "96": "icon-96.png"
     }
   },
   "permissions": [],
