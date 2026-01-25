@@ -12,22 +12,29 @@
     "deploy:firefox": "sh ./scripts/deploy-firefox.sh",
     "deploy:chrome": "sh ./scripts/deploy-chrome.sh",
     "deploy:pwa": "sh ./scripts/deploy-pwa.sh",
+    "test": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "test": "vitest run"
-    },
-    "dependencies": {
-      "@toast-ui/editor": "^3.2.2",
-      "vue": "^3.4.0"
-    },
-    "devDependencies": {
-      "@vitejs/plugin-vue": "^5.2.4",
-      "@vitest/coverage-v8": "^3.2.4",
-      "@vue/test-utils": "^2.4.6",
-      "jsdom": "^27.0.0",
-      "vite": "^5.4.20",
-      "vite-plugin-pwa": "^1.0.0",
-      "vite-plugin-static-copy": "^3.1.4",
-      "vitest": "^3.2.4",
-      "web-ext": "^9.0.0"
-    }
+    "test:e2e": "playwright test",
+    "test:e2e:extension": "playwright test --project=extension",
+    "test:e2e:web": "playwright test --project=web",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:debug": "playwright test --debug"
+  },
+  "dependencies": {
+    "@toast-ui/editor": "^3.2.2",
+    "vue": "^3.4.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.1",
+    "@vitejs/plugin-vue": "^5.2.4",
+    "@vitest/coverage-v8": "^3.2.4",
+    "@vue/test-utils": "^2.4.6",
+    "jsdom": "^27.0.0",
+    "playwright": "^1.58.0",
+    "vite": "^5.4.20",
+    "vite-plugin-pwa": "^1.0.0",
+    "vite-plugin-static-copy": "^3.1.4",
+    "vitest": "^3.2.4",
+    "web-ext": "^9.0.0"
+  }
 }
