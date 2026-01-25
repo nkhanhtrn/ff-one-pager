@@ -26,3 +26,8 @@ dist-ssr
 # Build artifacts
 web-ext-artifacts
 coverage/
+
+# Playwright E2E test artifacts
+playwright-report/
+test-results/
+/HTML-Report/
